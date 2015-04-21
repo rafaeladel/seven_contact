@@ -1,4 +1,4 @@
-<%= form_for(@contact_record) do |f| %>
+<%= form_for @contact_record, url: seven_contact.new_contact_record_path do |f| %>
   <% if @contact_record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@contact_record.errors.count, "error") %> prohibited this contact_record from being saved:</h2>
@@ -12,6 +12,18 @@
   <% end %>
 
   <div class="actions">
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+    <div>
+      <%= f.label :content %>
+      <%= f.text_area :content %>
+    </div>
     <%= f.submit %>
   </div>
 <% end %>

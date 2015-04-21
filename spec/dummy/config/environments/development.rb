@@ -14,7 +14,19 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address              => "smtp.mandrillapp.com",
+      :port                 => 587,
+      :user_name            => "rafael@thesevenlayers.net",
+      :password             => "tAFU-VGKtE8IwAByfcODPA",
+      :authentication       => "login",
+      :enable_starttls_auto => true
+  }
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.preview_path = "#{SevenContact::Engine.root}/spec/mailers"
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

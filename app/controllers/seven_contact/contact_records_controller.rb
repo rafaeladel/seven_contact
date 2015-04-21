@@ -2,7 +2,7 @@ require_dependency "seven_contact/application_controller"
 
 module SevenContact
   class ContactRecordsController < ApplicationController
-    before_action :set_contact_record, only: [:show, :edit, :update, :destroy]
+    before_action :set_contact_record, only: [:show, :destroy]
 
     # GET /contact_records
     def index
@@ -18,27 +18,15 @@ module SevenContact
       @contact_record = ContactRecord.new
     end
 
-    # GET /contact_records/1/edit
-    def edit
-    end
-
     # POST /contact_records
     def create
       @contact_record = ContactRecord.new(contact_record_params)
 
       if @contact_record.save
+        ContactMailer.send_mail(@contact_record).deliver_now
         redirect_to @contact_record, notice: 'Contact record was successfully created.'
       else
         render :new
-      end
-    end
-
-    # PATCH/PUT /contact_records/1
-    def update
-      if @contact_record.update(contact_record_params)
-        redirect_to @contact_record, notice: 'Contact record was successfully updated.'
-      else
-        render :edit
       end
     end
 
@@ -56,7 +44,7 @@ module SevenContact
 
       # Only allow a trusted parameter "white list" through.
       def contact_record_params
-        params[:contact_record]
+        params[:contact_record].permit(:email, :name, :content)
       end
   end
 end

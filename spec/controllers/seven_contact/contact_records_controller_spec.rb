@@ -26,11 +26,11 @@ module SevenContact
     # ContactRecord. As you add validations to ContactRecord, be sure to
     # adjust the attributes here as well.
     let(:valid_attributes) {
-      skip("Add a hash of attributes valid for your model")
+      {name: "test name", email: "dwd@dwd.com", content: "Dwwww"}
     }
 
     let(:invalid_attributes) {
-      skip("Add a hash of attributes invalid for your model")
+      {name: "test name", email: "notemail.com", content: ""}
     }
 
     # This should return the minimal set of values that should be in the session
@@ -58,14 +58,6 @@ module SevenContact
       it "assigns a new contact_record as @contact_record" do
         get :new, { }, valid_session
         expect(assigns(:contact_record)).to be_a_new(ContactRecord)
-      end
-    end
-
-    describe "GET #edit" do
-      it "assigns the requested contact_record as @contact_record" do
-        contact_record = ContactRecord.create! valid_attributes
-        get :edit, {:id => contact_record.to_param}, valid_session
-        expect(assigns(:contact_record)).to eq(contact_record)
       end
     end
 
@@ -98,47 +90,6 @@ module SevenContact
         it "re-renders the 'new' template" do
           post :create, {:contact_record => invalid_attributes}, valid_session
           expect(response).to render_template("new")
-        end
-      end
-    end
-
-    describe "PUT #update" do
-      context "with valid params" do
-        let(:new_attributes) {
-          skip("Add a hash of attributes valid for your model")
-        }
-
-        it "updates the requested contact_record" do
-          contact_record = ContactRecord.create! valid_attributes
-          put :update, {:id => contact_record.to_param, :contact_record => new_attributes}, valid_session
-          contact_record.reload
-          skip("Add assertions for updated state")
-        end
-
-        it "assigns the requested contact_record as @contact_record" do
-          contact_record = ContactRecord.create! valid_attributes
-          put :update, {:id => contact_record.to_param, :contact_record => valid_attributes}, valid_session
-          expect(assigns(:contact_record)).to eq(contact_record)
-        end
-
-        it "redirects to the contact_record" do
-          contact_record = ContactRecord.create! valid_attributes
-          put :update, {:id => contact_record.to_param, :contact_record => valid_attributes}, valid_session
-          expect(response).to redirect_to(contact_record)
-        end
-      end
-
-      context "with invalid params" do
-        it "assigns the contact_record as @contact_record" do
-          contact_record = ContactRecord.create! valid_attributes
-          put :update, {:id => contact_record.to_param, :contact_record => invalid_attributes}, valid_session
-          expect(assigns(:contact_record)).to eq(contact_record)
-        end
-
-        it "re-renders the 'edit' template" do
-          contact_record = ContactRecord.create! valid_attributes
-          put :update, {:id => contact_record.to_param, :contact_record => invalid_attributes}, valid_session
-          expect(response).to render_template("edit")
         end
       end
     end
