@@ -38,6 +38,15 @@ module SevenContact
     # ContactRecordsController. Be sure to keep this updated too.
     let(:valid_session) { {} }
 
+    before(:each) do
+      ActionMailer::Base.perform_deliveries = true
+      ActionMailer::Base.deliveries = []
+    end
+
+    after(:each) do
+      ActionMailer::Base.deliveries.clear
+    end
+
     describe "GET #index" do
       it "assigns all contact_records as @contact_records" do
         contact_record = ContactRecord.create! valid_attributes
@@ -75,6 +84,12 @@ module SevenContact
           expect(assigns(:contact_record)).to be_persisted
         end
 
+        it "sends email" do
+          expect {
+            post :create, {contact_record: valid_attributes}, valid_session
+          }.to change { ActionMailer::Base.deliveries.count }.from(0).to(1)
+        end
+
         it "redirects to the created contact_record" do
           post :create, {:contact_record => valid_attributes}, valid_session
           expect(response).to redirect_to(ContactRecord.last)
@@ -85,6 +100,8 @@ module SevenContact
         it "assigns a newly created but unsaved contact_record as @contact_record" do
           post :create, {:contact_record => invalid_attributes}, valid_session
           expect(assigns(:contact_record)).to be_a_new(ContactRecord)
+          expect(assigns(:contact_record)).to_not be_persisted
+          expect(ActionMailer::Base.deliveries.count).to eq 0
         end
 
         it "re-renders the 'new' template" do
