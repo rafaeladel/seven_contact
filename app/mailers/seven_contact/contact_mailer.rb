@@ -1,10 +1,10 @@
 module SevenContact
   class ContactMailer < ApplicationMailer
-    default from: "from@example.com"
+    # default to:
 
     def send_mail(contact_record)
       @contact_record = contact_record
-      mail(to: @contact_record.email, subject: "contact us email arrived")
+      mail(to: ENGINE_CONFIG["mailer_to"], subject: "contact us email arrived")
     end
   end
 end

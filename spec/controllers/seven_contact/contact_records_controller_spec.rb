@@ -88,6 +88,7 @@ module SevenContact
           expect {
             post :create, {contact_record: valid_attributes}, valid_session
           }.to change { ActionMailer::Base.deliveries.count }.from(0).to(1)
+          expect(ActionMailer::Base.deliveries.first.to.first).to eq SevenContact::ENGINE_CONFIG["mailer_to"]
         end
 
         it "redirects to the created contact_record" do
