@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = SevenContact::VERSION
   s.authors     = ["rafael"]
   s.email       = ["rafael.adel20@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of SevenContact."
-  s.description = "TODO: Description of SevenContact."
+  s.homepage    = "https://github.com:rafaeladel/seven_contact.git"
+  s.summary     = "Summary of SevenContact."
+  s.description = "Description of SevenContact."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
